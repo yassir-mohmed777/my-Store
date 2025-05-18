@@ -1,0 +1,18 @@
+#Mydiv{
+    background-color: black;
+
+    h3{
+        font-size: 40px;
+        font-weight: 900;
+        color: white;
+    }
+
+
+    @media (max-width: 480px) {
+        h3{
+            font-size: 32px;
+        }
+    }
+}
+
+

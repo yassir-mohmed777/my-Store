@@ -1,0 +1,28 @@
+#Contant{
+ background-color: #F0F0F0;
+
+    #Link{
+        a{
+            text-decoration: none;
+            color: gray;
+            margin-bottom: 20px;
+        }
+    }
+
+    h2{
+        font-size: 34px;
+        font-weight: 900;
+        color: black;
+    }
+
+    #border{
+        border-bottom: solid 1px black;
+    }
+
+
+    @media (max-width: 768px) {
+        
+    }
+
+}
+

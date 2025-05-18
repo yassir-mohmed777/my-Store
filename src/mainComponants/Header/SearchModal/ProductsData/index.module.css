@@ -1,0 +1,11 @@
+#contant{
+    height: 75vh;
+    #Product{
+        cursor: pointer;
+    }
+    img{
+        width: 100px;
+        height: 90px;
+        object-fit: contain;
+    }
+}
