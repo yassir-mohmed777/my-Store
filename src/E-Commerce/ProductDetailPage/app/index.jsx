@@ -15,16 +15,17 @@ export default function ProductDetailPage() {
   const [imgUrl, setImgUrl] = useState("");
   let productId = params.productId;
 
-  // useEffect(() => {
-  //   ProductsRepo.Product_show(productId)
-  //     .then((res) => {
-  //       setProduct(res);
-  //       setImgUrl(domain + res.product_img.url);
-  //     })
-  //     .catch((err) => {
-  //       navigate("/error");
-  //     });
-  // }, []);
+  useEffect(() => {
+    ProductsRepo.Product_show(productId)
+      .then((res) => {
+        console.log(res)
+        setProduct(res);
+        setImgUrl(res.image_url);
+      })
+      // .catch((err) => {
+      //   navigate("/error");
+      // });
+  }, []);
 
   if (!product) {
     return (
@@ -40,9 +41,9 @@ export default function ProductDetailPage() {
     <div className="col-12">
       <div className="container">
         <MinHeader
-          productName={product.product_name}
-          catName={product.categorice.category_name}
-          catId={product.categorice.documentId}
+          productName={product.name}
+          catName={product.category_name}
+          catId={product.id}
         />
         <div className="col-12 d-flex flex-wrap flex-md-nowrap">
           <ProductImg product={product} productImg={imgUrl} setImg={setImgUrl} />

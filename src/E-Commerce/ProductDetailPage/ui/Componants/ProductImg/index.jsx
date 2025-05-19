@@ -8,7 +8,8 @@ export default function ProductImg({ product, productImg, setImg }) {
 
   useEffect(() => {
     if (!product) return;
-    setMultImg(product.product_full_img);
+    console.log(product)
+    setMultImg(product.images);
   }, [product]);
 
   return (
@@ -16,13 +17,13 @@ export default function ProductImg({ product, productImg, setImg }) {
       <div className={styles.wrapper}>
         <div className={styles.thumbnails}>
           {multImg &&
-            multImg.map((el) => (
+            multImg.map((el,index) => (
               <img
-                key={el.documentId}
-                src={domain + el.url}
-                onClick={() => setImg(domain + el.url)}
+                key={index}
+                src={el.image_url}
+                onClick={() => setImg(el.image_url)}
                 className={`${styles.thumb} ${
-                  productImg === domain + el.url ? styles.active : ""
+                  productImg === el.image_url ? styles.active : ""
                 }`}
                 alt="preview"
               />

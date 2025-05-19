@@ -14,7 +14,6 @@ export default function ProductDetail({ product, productImg }) {
       toast.error("أختر مقاس ولون رجاء");
       return;
     }
-    
 
     let obj = {
       documentId: product.documentId,
@@ -27,7 +26,6 @@ export default function ProductDetail({ product, productImg }) {
       product_stock: product.product_stock,
     };
 
-    
     const added = addToCart(obj);
     if (added) {
       toast.success("تمت الأضافة للسلة");
@@ -53,15 +51,15 @@ export default function ProductDetail({ product, productImg }) {
   return (
     <div className="col-12 col-md-6 ps-4">
       <div className="col-12">
-        <h1>{product.product_name}</h1>
+        <h1>{product.name}</h1>
         <span>
-          ${product.product_new_price}{" "}
-          <del>
-            {product.product_price && "$"}
-            {product.product_price}
+          ${product.new_price}{" "}
+          <del className="text-danger">
+            {product.price && "$"}
+            {product.price}
           </del>
         </span>
-        <p>{product.product_desc}</p>
+        <p>{product.description}</p>
         <hr />
 
         <p className="text-secondary">أختر اللون</p>

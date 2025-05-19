@@ -486,45 +486,45 @@ export default function CheckoutPage() {
     sessionStorage.removeItem("redirect");
   }, []);
 
-  const handleCheckoutStripe = async () => {
-    if (!agree) return toast.warning("وافق على الشرط");
+  // const handleCheckoutStripe = async () => {
+  //   if (!agree) return toast.warning("وافق على الشرط");
 
-    if (
-      !fullNameRef.current.value ||
-      !phoneRef.current.value ||
-      !cityRef.current.value ||
-      !addressRef.current.value
-    ) {
-      return toast.warning("رجاء املئ جميح الخانات.");
-    }
+  //   if (
+  //     !fullNameRef.current.value ||
+  //     !phoneRef.current.value ||
+  //     !cityRef.current.value ||
+  //     !addressRef.current.value
+  //   ) {
+  //     return toast.warning("رجاء املئ جميح الخانات.");
+  //   }
 
-    const items = productInCart.map((item) => ({
-      name: item.product_name,
-      price: item.product_new_price * 100, // Stripe يأخذ السعر بالسنت
-      quantity: item.qty,
-    }));
+  //   const items = productInCart.map((item) => ({
+  //     name: item.product_name,
+  //     price: item.product_new_price * 100, // Stripe يأخذ السعر بالسنت
+  //     quantity: item.qty,
+  //   }));
 
-    try {
-      const response = await axios.post(
-        "http://localhost:4242/create-checkout-session",
-        {
-          items: items,
-        }
-      );
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:4242/create-checkout-session",
+  //       {
+  //         items: items,
+  //       }
+  //     );
 
-      // استخدام sessionId بدلاً من url
-      if (response.data.sessionId) {
-        const stripe = await stripePromise;
-        stripe.redirectToCheckout({ sessionId: response.data.sessionId });
-        resetCart();
-      } else {
-        throw new Error("لم يتم إنشاء الجلسة بنجاح");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("حدث خطأ أثناء معالجة الدفع");
-    }
-  };
+  //     // استخدام sessionId بدلاً من url
+  //     if (response.data.sessionId) {
+  //       const stripe = await stripePromise;
+  //       stripe.redirectToCheckout({ sessionId: response.data.sessionId });
+  //       resetCart();
+  //     } else {
+  //       throw new Error("لم يتم إنشاء الجلسة بنجاح");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("حدث خطأ أثناء معالجة الدفع");
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
