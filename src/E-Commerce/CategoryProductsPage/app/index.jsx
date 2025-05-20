@@ -38,7 +38,7 @@ export default function CategoryProductsPage() {
       minPrice,
       maxPrice
     ).then((res) => {
-      console.log(res)
+      setCatName(res.data[0].category_name)
       setProducts(res.data);
       setProductsTotal(res.total);
     });

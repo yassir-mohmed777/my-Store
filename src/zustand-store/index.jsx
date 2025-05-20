@@ -183,7 +183,7 @@ export const useCart = create((set, get) => ({
       const totalQty = (existingItem?.qty || 0) + (product.qty || 1);
 
       if (totalQty > product.product_stock) {
-        toast.warning(`Only ${product.product_stock} items in stock`, {
+        toast.warning(`فقط ${product.product_stock} متوفر`, {
           position: "top-center",
         });
         return {};

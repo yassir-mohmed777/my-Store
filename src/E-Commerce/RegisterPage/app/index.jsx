@@ -26,33 +26,35 @@ const {setToken} = useAuthStore()
       .matches(phoneRegex, "Not Valid"),
   });
 
-  const hundleSubmit = (value) => {
-    openLoader();
-    AuthRepo.register(value).then((res) => {
-      if (res) {
-        const userData = {
-          user_name: res.user.username,
-          user_email: res.user.email,
-          user_phone: res.user.phone,
-        };
-        setToken(res.jwt);
-        sessionStorage.setItem("userInfo", JSON.stringify(userData));
-        sessionStorage.setItem("userId", res.user.documentId);
-        let redirect = sessionStorage.getItem("redirect");
-        setTimeout(() => {
-          closeLoader();
-          if (redirect) {
-            navigate("/checkout");
-          } else {
-            navigate("/profile");
-          }
-        }, 3000);
-      } else {
-        toast.error("Registration failed");
-        closeLoader();
-      }
-    });
+ const hundleSubmit = (value) => {
+  openLoader();
+
+  const fakeUserId = Date.now().toString();
+  const fakeToken = "static-dev-token"; 
+
+  const userData = {
+    user_name: value.username,
+    user_email: value.email,
+    user_phone: value.phone,
+    user_password: value.password,
   };
+
+ 
+  sessionStorage.setItem("userInfo", JSON.stringify(userData));
+  sessionStorage.setItem("userId", fakeUserId);
+  setToken(fakeToken); 
+
+  let redirect = sessionStorage.getItem("redirect");
+
+  setTimeout(() => {
+    closeLoader();
+    if (redirect) {
+      navigate("/checkout");
+    } else {
+      navigate("/profile");
+    }
+  }, 1000);
+};
 
   return (
     <div className="col-12 h-100 mb-5">
@@ -69,7 +71,7 @@ const {setToken} = useAuthStore()
           }}
         >
           <Form className="col-12 col-md-5 p-3 shadow rounded-2 border bg-white ">
-            <label className="w-full">Full Name</label>
+            <label className="w-full">الاسم بالكامل</label>
             <Field
               type="text"
               name="username"
@@ -81,7 +83,7 @@ const {setToken} = useAuthStore()
               className="text-danger "
             />
 
-            <label className="w-full">Email</label>
+            <label className="w-full">الايميل</label>
             <Field
               placeholder="Ahmed123@icloud.com"
               type="text"
@@ -93,7 +95,7 @@ const {setToken} = useAuthStore()
               component="div"
               className="text-danger "
             />
-            <label className="w-full"> Enter phone</label>
+            <label className="w-full">رقم الهاتف</label>
             <Field
               type="text"
               name="phone"
@@ -105,7 +107,7 @@ const {setToken} = useAuthStore()
               className="text-danger "
             />
 
-            <label className="w-full"> Enter Password</label>
+            <label className="w-full"> كلمة المرور</label>
             <Field
               type="password"
               name="password"
@@ -117,12 +119,12 @@ const {setToken} = useAuthStore()
               className="text-danger "
             />
             <button type="submit" className="btn btn-dark col-12 mt-4">
-              Register
+              تسجيل
             </button>
           </Form>
         </Formik>
         <Link to="/login" className="mt-3 text-secondary">
-          Already have an account? Log in here
+          لديك حساب ؟ سجل دخولك من هنا
         </Link>
       </div>
     </div>

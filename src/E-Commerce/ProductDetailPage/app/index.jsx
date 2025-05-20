@@ -43,7 +43,7 @@ export default function ProductDetailPage() {
         <MinHeader
           productName={product.name}
           catName={product.category_name}
-          catId={product.id}
+          catId={product.category_id}
         />
         <div className="col-12 d-flex flex-wrap flex-md-nowrap">
           <ProductImg product={product} productImg={imgUrl} setImg={setImgUrl} />

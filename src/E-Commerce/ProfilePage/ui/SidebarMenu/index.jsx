@@ -7,8 +7,8 @@ export default function SidebarMenu() {
   const navigate = useNavigate()
 
   const logOut = () => {
-    localStorage.clear();
-    sessionStorage.clear();
+    // localStorage.clear();
+    // sessionStorage.clear();
     navigate("/login");
   };
 

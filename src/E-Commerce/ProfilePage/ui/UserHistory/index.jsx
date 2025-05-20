@@ -8,8 +8,8 @@ export default function UserHistory({ userName, userOrder }) {
   const visibleOrders = showAll ? userOrder : userOrder.slice(0, 2);
 
   const logOut = () => {
-    localStorage.clear();
-    sessionStorage.clear();
+    // localStorage.clear();
+    // sessionStorage.clear();
     navigate("/login");
   };
 

@@ -5,6 +5,7 @@ import ProductDetailPage from "./E-Commerce/ProductDetailPage/app";
 import CartPage from "./E-Commerce/CartPage/app";
 import ModalHeader from "./mainComponants/Header/Modal";
 import {
+  useData,
   useFilterModal,
   useLoader,
   useModalHed,
@@ -27,6 +28,8 @@ import MainLayout from "./E-Commerce/MainLayout";
 import NotFoundPage from "./E-Commerce/NotFoundPage";
 import FavoritePage from "./E-Commerce/FavoritePage/app";
 import ScrollToTop from "./mainComponants/ScrollToTop";
+import { useEffect } from "react";
+import { CatsRepo } from "./data/repos/Cat_Repo";
 
 export default function App() {
   const { modalIndex } = useModalHed();
@@ -34,6 +37,12 @@ export default function App() {
   const { ModalSearh } = useModalSearh();
   const { LoaderIndex } = useLoader();
   const { filterModalIndex } = useFilterModal();
+    const { setData } = useData();
+useEffect(() => {
+  CatsRepo.categorice_index().then((res) => {
+    setData(res);
+  });
+},[])
 
   return (
     <div className="App">

@@ -7,16 +7,16 @@ import { OrderRepo } from "../../../data/repos/OrderRepo";
 
 export default function ProfilePage() {
   const [userInfo, setUserInfo] = useState();
-  const [userOrder , setUserOrder] = useState([])
+  const [userOrder, setUserOrder] = useState([]);
 
-  // useEffect(() => {
-  //   let userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
-  //   let userId = sessionStorage.getItem('userId')
-  //   setUserInfo(userInfo);
-  //   OrderRepo.show_order(userId).then((res) => {
-  //     setUserOrder(res)
-  //   })
-  // }, []);
+  useEffect(() => {
+    let userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+    // let userId = sessionStorage.getItem('userId')
+    setUserInfo(userInfo);
+    // OrderRepo.show_order(userId).then((res) => {
+    //   setUserOrder(res)
+    // })
+  }, []);
 
   return (
     <div className="col-12">
@@ -26,14 +26,16 @@ export default function ProfilePage() {
           <SidebarMenu />
         </div>
         <div className="col-12 col-md-9 p-0 p-md-5">
-          <UserHistory userOrder={userOrder && userOrder} userName={userInfo && userInfo.user_name} />
-          {
-            userInfo && 
-          <UserDeatils
-            userName={userInfo.user_name}
-            userEmail={userInfo.user_email}
+          <UserHistory
+            userOrder={userOrder && userOrder}
+            userName={userInfo && userInfo.user_name}
           />
-          }
+          {userInfo && (
+            <UserDeatils
+              userName={userInfo.user_name}
+              userEmail={userInfo.user_email}
+            />
+          )}
         </div>
       </div>
     </div>

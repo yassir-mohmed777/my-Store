@@ -20,38 +20,45 @@ export default function LoginPage() {
   });
 
   const hundleLogin = (value) => {
-    openLoader();
-    AuthRepo.login(value).then((res) => {
-      if (res) {
-        toast.success("Login Success !");
-        const userData = {
-          user_name: res.user.username,
-          user_email: res.user.email,
-          user_phone: res.user.phone,
-        };
-        setToken(res.jwt)
-        if (rememberMe) {
-          localStorage.setItem("userInfo", JSON.stringify(userData));
-          localStorage.setItem("userId", res.user.documentId);
-        } else {
-          sessionStorage.setItem("userInfo", JSON.stringify(userData));
-          sessionStorage.setItem("userId", res.user.documentId);
-        }
-        let redirect = sessionStorage.getItem("redirect");
-        setTimeout(() => {
-          closeLoader();
-          if (redirect) {
-            navigate("/checkout");
-          } else {
-            navigate("/profile");
-          }
-        }, 3000);
-      } else {
-        toast.error("Wrong Email or Password");
-        closeLoader();
-      }
-    });
-  };
+  openLoader();
+
+  const storedUser =
+    JSON.parse(localStorage.getItem("userInfo")) ||
+    JSON.parse(sessionStorage.getItem("userInfo"));
+
+  if (
+    storedUser &&
+    storedUser.user_email === value.email &&
+    storedUser.user_password === value.password
+  ) {
+    toast.success("تم تسجيل الدخول بنجاح!");
+
+    const fakeToken = "static-dev-token";
+    const fakeUserId =
+      localStorage.getItem("userId") || sessionStorage.getItem("userId");
+
+    if (rememberMe) {
+      localStorage.setItem("userInfo", JSON.stringify(storedUser));
+      localStorage.setItem("userId", fakeUserId);
+    } else {
+      sessionStorage.setItem("userInfo", JSON.stringify(storedUser));
+      sessionStorage.setItem("userId", fakeUserId);
+    }
+
+    setToken(fakeToken);
+
+    let redirect = sessionStorage.getItem("redirect");
+
+    setTimeout(() => {
+      closeLoader();
+      navigate(redirect || "/profile");
+    }, 1000);
+  } else {
+    toast.error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
+    closeLoader();
+  }
+};
+
 
   return (
     <div className="col-12 h-100">
@@ -63,30 +70,30 @@ export default function LoginPage() {
           initialValues={{ email: "", password: "" }}
         >
           <Form className="col-10 col-lg-4 bg-white p-3 rounded shadow d-flex flex-column ">
-            <label>Email</label>
+            <label>الأيميل</label>
             <Field
               className="form-control black-outline py-2"
               name="email"
-              placeholder="Enter Email Here..."
+              placeholder="ادخل الايميل هنا..."
             />
             <ErrorMessage
               name="email"
               component={"div"}
               className="text-danger"
             />
-            <label className="mt-3">Password</label>
+            <label className="mt-3">كلمة المرور</label>
             <Field
               type="password"
               className="form-control black-outline py-2"
               name="password"
-              placeholder="Enter Password Here..."
+              placeholder="ادخل كلمة المرور هنا..."
             />
             <ErrorMessage
               name="password"
               component={"div"}
               className="text-danger"
             />
-            <div className="form-check mt-3">
+            <div className="form-check form-check-reverse mt-3">
               <input
                 className="form-check-input"
                 type="checkbox"
@@ -95,14 +102,14 @@ export default function LoginPage() {
                 onChange={() => setRememberMe(!rememberMe)}
               />
               <label className="form-check-label" htmlFor="rememberMe">
-                Remember Me
+                تذكرني
               </label>
             </div>
-            <button className="btn btn-dark mt-4" type="submit">Sign in</button>
+            <button className="btn btn-dark mt-4 " type="submit">تسجيل الدخول</button>
           </Form>
         </Formik>
         <Link to="/register" className="mt-3 text-secondary">
-          New customer? Create your account
+          عميل جديد ؟ أنشئ حسابك الأن
         </Link>
       </div>
     </div>

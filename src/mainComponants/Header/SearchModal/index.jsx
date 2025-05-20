@@ -38,7 +38,7 @@ export default function SearchModal() {
             searchResults.length > 0 ? (
               <ProductsData products={searchResults} />
             ) : (
-              <p className="text-center my-4">No results found</p>
+              <p className="text-center my-4">لا يوجد نتائج</p>
             )
           ) : (
             <>

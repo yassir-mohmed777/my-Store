@@ -17,19 +17,19 @@ export default function ShopPage() {
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
 const {filterModalIndex} = useFilterModal()
-  // useEffect(() => {
-  //   ProductsRepo.Products_index(
-  //     activePage,
-  //     productPerPage,
-  //     null,
-  //     sortBy,
-  //     minPrice,
-  //     maxPrice
-  //   ).then((res) => {
-  //     setProducts(res.data);
-  //     setProductsTotal(res.total);
-  //   });
-  // }, [activePage, productPerPage, sortBy, minPrice, maxPrice]);
+  useEffect(() => {
+    ProductsRepo.Products_index(
+      activePage,
+      productPerPage,
+      null,
+      sortBy,
+      minPrice,
+      maxPrice
+    ).then((res) => {
+      setProducts(res.data);
+      setProductsTotal(res.total);
+    });
+  }, [activePage, productPerPage, sortBy, minPrice, maxPrice]);
 
 
   return (

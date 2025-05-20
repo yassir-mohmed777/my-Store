@@ -16,14 +16,14 @@ export default function ProductDetail({ product, productImg }) {
     }
 
     let obj = {
-      documentId: product.documentId,
-      product_name: product.product_name,
-      product_new_price: product.product_new_price,
+      documentId: product.id,
+      product_name: product.name,
+      product_new_price: product.new_price,
       product_img: productImg,
       color: selectedColor,
       size: selectedSize,
       qty,
-      product_stock: product.product_stock,
+      product_stock: product.in_stock,
     };
 
     const added = addToCart(obj);
@@ -33,10 +33,10 @@ export default function ProductDetail({ product, productImg }) {
   };
 
   const increaseQty = () => {
-    if (qty < product.product_stock) {
+    if (qty < product.in_stock) {
       setQty(qty + 1);
     } else {
-      toast.warn(`Parts available ${product.product_stock} only`, {
+      toast.warn(`متوفر ${product.in_stock} فقط`, {
         position: "top-center",
       });
     }
@@ -64,9 +64,9 @@ export default function ProductDetail({ product, productImg }) {
 
         <p className="text-secondary">أختر اللون</p>
         <div className="d-flex gap-3 mb-3">
-          {product.colors?.map((color) => (
+          {product.colors?.map((color,index) => (
             <button
-              key={color.id}
+              key={index}
               style={{
                 width: "32px",
                 height: "32px",
@@ -102,10 +102,10 @@ export default function ProductDetail({ product, productImg }) {
         <hr />
         <p className="text-secondary">أختر المقاس</p>
         <div className="d-flex gap-2 gap-md-3 mb-3">
-          {product.sizes?.map((size) => (
+          {product.sizes?.map((size,index) => (
             <button
               id={styles.BtnSize}
-              key={size}
+              key={index}
               className="btn"
               style={{
                 backgroundColor: selectedSize === size ? "black" : "#f1f1f1",

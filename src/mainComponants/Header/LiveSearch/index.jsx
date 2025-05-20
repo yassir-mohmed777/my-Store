@@ -1,27 +1,30 @@
 import { IoIosSearch } from "react-icons/io";
 import styles from "./index.module.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { supabase } from "../../../supabaseClient";
+// import { supabase } from "../../supabaseClient"; 
 
 export default function LiveSearch({ onResults }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
-        onResults(null); 
+      onResults(null);
       return;
     }
 
-    const delay = setTimeout(() => {
-      axios
-        .get(`http://localhost:1337/api/products?populate=*&_q=${searchQuery}`)
-        .then((res) => {
-            onResults(res.data.data); 
-        })
-        .catch((err) => {
-          console.error("Error fetching results", err);
-          onResults([]);
-        });
+    const delay = setTimeout(async () => {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*") 
+        .ilike("name", `%${searchQuery}%`); 
+
+      if (error) {
+        console.error("Error fetching results", error);
+        onResults([]);
+      } else {
+        onResults(data);
+      }
     }, 400); 
 
     return () => clearTimeout(delay);

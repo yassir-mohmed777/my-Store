@@ -10,7 +10,7 @@ export default function FavoriteButton({ productId }) {
   const handleClick = (e) => {
     e.stopPropagation();
     toggleFavorite(productId);
-    toast.success(favorite ? "Removed to favorites" : "Added to favorites" , {
+    toast.success(favorite ? "تمت الازالة" : "تمت الاضافة الى المفضلة" , {
       position: "bottom-center",
     });
   };

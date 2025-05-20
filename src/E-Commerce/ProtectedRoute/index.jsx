@@ -4,26 +4,28 @@ import { toast } from "react-toastify";
 import { AuthRepo } from "../../data/repos/AuthRepo";
 
 export default function ProtectedRoute({ children }) {
-  const [isValid, setIsValid] = useState(null); // null = جاري التحقق
-  const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+  const [isValid, setIsValid] = useState(null); 
+  const userInfo = sessionStorage.getItem("userInfo") || localStorage.getItem("userInfo");
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     setIsValid(false);
-  //     return;
-  //   }
+  useEffect(() => {
+    if (!userInfo) {
+      setIsValid(false);
+      return;
+    }else{
+      setIsValid(true);
+    }
 
-  //   AuthRepo.checkToken(token)
-  //     .then(() => {
-  //       setIsValid(true);
-  //     })
-  //     .catch(() => {
-  //       toast.error("Access denied. Please login.");
-  //       localStorage.clear();
-  //       sessionStorage.clear();
-  //       setIsValid(false);
-  //     });
-  // }, []);
+    // AuthRepo.checkToken(token)
+    //   .then(() => {
+    //     setIsValid(true);
+    //   })
+    //   .catch(() => {
+    //     toast.error("Access denied. Please login.");
+    //     localStorage.clear();
+    //     sessionStorage.clear();
+    //     setIsValid(false);
+    //   });
+  }, []);
 
   // لودر بسيط
   if (isValid === null) {

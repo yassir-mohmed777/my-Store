@@ -32,8 +32,8 @@ export default function Header() {
   }, [productInCart, favorites]);
 
   const logOut = () => {
-    localStorage.clear();
-    sessionStorage.clear();
+    // localStorage.clear();
+    // sessionStorage.clear();
     clearToken();
     navigate("/login");
   };
@@ -52,7 +52,7 @@ export default function Header() {
             <nav className="d-none d-lg-flex align-items-lg-center gap-md-2  gap-lg-4 col-5">
               <Link to="/">الرئيسية</Link>
               <Link to="/shop">تسوق</Link>
-              <Link to="/categories/hhsv73wydbkc0z0tgmg8jn3p">الجديد</Link>
+              <Link to="/categories/d240cf9c-7fa1-4b2f-a7ef-f1956439b8f4">الجديد</Link>
               <Link>البراندات</Link>
             </nav>
           </div>
