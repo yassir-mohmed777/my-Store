@@ -40,7 +40,7 @@ const { Categorice } = useData();
           >
             <div className="accordion-body  gap-2">
               <div>
-                <h5>Filter by Price</h5>
+                <h5>فلترة السعر</h5>
                 <Slider
                   range
                   min={0}
@@ -51,8 +51,8 @@ const { Categorice } = useData();
                   onChange={(val) => setRange(val)}
                 />
                 <div className="d-flex justify-content-between mt-2">
-                  <span>${range[0]}</span>
                   <span>${range[1]}</span>
+                  <span>${range[0]}</span>
                 </div>
                 <button
                   className="btn btn-dark col-12 btn-sm mt-3"
@@ -65,12 +65,12 @@ const { Categorice } = useData();
                 {Categorice &&
                   Categorice.map((el) => (
                     <div
-                      key={el.documentId}
-                      onClick={() => navigate(`/categories/${el.documentId}`)}
+                      key={el.id}
+                      onClick={() => navigate(`/categories/${el.id}`)}
                       className="d-flex justify-content-between mb-2"
                       id={styles.Cats}
                     >
-                      <span>{el.category_name}</span>
+                      <span>{el.name}</span>
                       <FaAngleRight />
                     </div>
                   ))}
